@@ -9,16 +9,10 @@ const require = createRequire(import.meta.url);
 
 const defaultConfig = await createVitestConfig();
 
-console.log(require.resolve("@lynx-js/react"));
-
 const config: UserWorkspaceConfig = defineProject({
   test: {
     name: "react-lynx-use",
-    // server:{
-    //   deps:{
-    //     inline: true
-    //   }
-    // }
+    globals: true,
   },
   resolve: {
     alias: {

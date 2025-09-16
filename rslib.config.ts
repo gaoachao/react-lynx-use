@@ -4,12 +4,15 @@ export default defineConfig({
   lib: [
     {
       format: "esm",
-      syntax: ["node 18"],
-      dts: true,
+      syntax: "es2022",
+      dts: { bundle: true},
     },
     {
       format: "cjs",
       syntax: ["node 18"],
     },
   ],
+  source: {
+    tsconfigPath: "./tsconfig.build.json",
+  },
 });

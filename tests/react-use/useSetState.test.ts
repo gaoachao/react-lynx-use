@@ -1,7 +1,5 @@
 import { act, renderHook } from "@lynx-js/react/testing-library";
-import { useSetState  } from "../src/useSetState.js";
-
-import { it, expect } from "vitest";
+import { useSetState } from "../../src/react-use.js";
 
 const setUp = (initialState?: object) =>
   renderHook(() => useSetState(initialState));
