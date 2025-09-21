@@ -22,7 +22,10 @@ Many hooks in this library are built upon the excellent foundation provided by [
 ### Lynx Cross-Platform Specific Hooks
 
 - [ ] **`useTapAway`**
-- [ ] **`useBackgroundIntersection`**
+- [ ] **`useIntersection`**
+- [ ] **`useInput`**
+- [ ] **`useEvent`**
+- [ ] **`useEventListener`**
 
 ## 🚧 Coming Soon
 

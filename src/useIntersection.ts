@@ -7,9 +7,8 @@ export type IntersectionObserverOptions = {
   observeAll?: boolean;
 };
 
-// TBD: useBackgroundIntersection - hook name pending
 // For main-thread components IntersectionObserver implementation
-const useBackgroundIntersection = (
+const useIntersection = (
   seletor: string,
   options: IntersectionObserverOptions
 ): ObserveCallbackResult | null => {
@@ -41,4 +40,4 @@ const useBackgroundIntersection = (
   return intersectionObserveCallbackResult;
 };
 
-export default useBackgroundIntersection;
+export default useIntersection;
