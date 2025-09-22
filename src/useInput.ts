@@ -1,17 +1,28 @@
 import { useCallback, useState } from "@lynx-js/react";
 import type { BaseEvent } from "@lynx-js/types";
 
-export type UseInputOptions<T = string> = {
-  onChange?: (value: T) => void;
-  validator?: (value: T) => boolean;
-  formatter?: (value: T) => T;
-};
-
 export type InputInputEvent = {
   value: string;
   selectionStart: number;
   selectionEnd: number;
   isComposing?: boolean;
+};
+
+export type InputEvent = BaseEvent<"bindinput", InputInputEvent>;
+
+export type UseInputOptions<T = string> = {
+  onChange?:
+    | (() => void)
+    | ((value: T) => void)
+    | ((value: T, event: InputEvent) => void);
+  validator?:
+    | (() => boolean)
+    | ((value: T) => boolean)
+    | ((value: T, event: InputEvent) => boolean);
+  formatter?:
+    | (() => T)
+    | ((value: T) => T)
+    | ((value: T, event: InputEvent) => T);
 };
 
 function useInput<T = string>(initialValue: T, options?: UseInputOptions<T>) {
@@ -22,15 +33,15 @@ function useInput<T = string>(initialValue: T, options?: UseInputOptions<T>) {
   }, [initialValue]);
 
   const handleInput = useCallback(
-    (e: BaseEvent<"bindinput", InputInputEvent>) => {
+    (e: InputEvent) => {
       const inputValue = e.detail.value as T;
 
       const formattedValue = options?.formatter
-        ? options.formatter(inputValue)
+        ? options.formatter(inputValue, e)
         : inputValue;
 
       if (options?.validator) {
-        if (!options.validator(formattedValue)) {
+        if (!options.validator(formattedValue, e)) {
           return;
         }
       }
@@ -38,7 +49,7 @@ function useInput<T = string>(initialValue: T, options?: UseInputOptions<T>) {
       setValue(formattedValue);
 
       if (options?.onChange) {
-        options.onChange(formattedValue);
+        options.onChange(formattedValue, e);
       }
     },
     [options]
