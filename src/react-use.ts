@@ -13,5 +13,10 @@ export {
   useQueue,
   useSet,
   useSetState,
+  useThrottle,
+  useThrottleFn,
   useToggle,
+  useUnmount,
+  useUnmountPromise,
+  useUpdateEffect,
 } from "react-use";
