@@ -1,5 +1,4 @@
 export {
-  useAsync,
   useBoolean,
   useCounter,
   useDefault,
