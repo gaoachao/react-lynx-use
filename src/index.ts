@@ -1,6 +1,7 @@
 export * from "./react-use.js";
 export { default as useAsync } from "./useAsync.js";
 export { default as useAsyncFn } from "./useAsyncFn.js";
+export { default as useDebounce } from "./useDebounce.js";
 export { default as useInput } from "./useInput.js";
 export { default as useIntersection } from "./useIntersection.js";
 export { default as useTimeout } from "./useTimeout.js";

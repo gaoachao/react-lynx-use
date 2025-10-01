@@ -2,6 +2,7 @@ export {
   createMemo,
   useBoolean,
   useCounter,
+  useDebounce,
   useDefault,
   useEffectOnce,
   useError,

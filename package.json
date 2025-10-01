@@ -1,5 +1,5 @@
 {
-  "name": "react-lynx-use",
+  "name": "@lynx-js/react-use",
   "version": "1.0.0",
   "type": "module",
   "exports": {
@@ -27,17 +27,18 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
     "@lynx-js/types": "3.4.11",
-    "@microsoft/api-extractor": "^7.52.13",
+    "@microsoft/api-extractor": "^7.52.15",
     "@rslib/core": "^0.13.3",
     "@rstest/core": "^0.4.1",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.6.1",
+    "@types/react": "^18.3.25",
     "jsdom": "^27.0.0",
     "rspress": "^1.45.6",
-    "typescript": "^5.9.2",
+    "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@lynx-js/react": "^0.114.0",
+    "@lynx-js/react": "^0.114.1",
     "react-use": "^17.6.0"
   },
   "packageManager": "pnpm@10.17.0+sha512.fce8a3dd29a4ed2ec566fb53efbb04d8c44a0f05bc6f24a73046910fb9c3ce7afa35a0980500668fa3573345bd644644fa98338fa168235c80f4aa17aa17fbef"
