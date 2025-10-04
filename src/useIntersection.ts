@@ -12,6 +12,8 @@ const useIntersection = (
   seletor: string,
   options: IntersectionObserverOptions
 ): ObserveCallbackResult | null => {
+  "background only";
+
   const [
     intersectionObserveCallbackResult,
     setIntersectionObserveCallbackResult,

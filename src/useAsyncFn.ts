@@ -29,8 +29,9 @@ export type AsyncState<T> =
       value: T;
     };
 
-export type StateFromFunctionReturningPromise<T extends FunctionReturningPromise> =
-  AsyncState<PromiseType<ReturnType<T>>>;
+export type StateFromFunctionReturningPromise<
+  T extends FunctionReturningPromise
+> = AsyncState<PromiseType<ReturnType<T>>>;
 
 export type AsyncFnReturn<
   T extends FunctionReturningPromise = FunctionReturningPromise
@@ -41,6 +42,8 @@ export default function useAsyncFn<T extends FunctionReturningPromise>(
   deps: DependencyList = [],
   initialState: StateFromFunctionReturningPromise<T> = { loading: false }
 ): AsyncFnReturn<T> {
+  "background only";
+
   const lastCallId = useRef(0);
   const isMounted = useMountedState();
   const [state, set] =

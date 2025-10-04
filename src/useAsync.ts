@@ -6,6 +6,8 @@ export default function useAsync<T extends FunctionReturningPromise>(
   fn: T,
   deps: DependencyList = []
 ) {
+  "background only";
+
   const [state, callback] = useAsyncFn(fn, deps, {
     loading: true,
   });

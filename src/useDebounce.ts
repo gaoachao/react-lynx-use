@@ -1,5 +1,5 @@
-import { DependencyList, useEffect } from '@lynx-js/react';
-import useTimeoutFn from './useTimeoutFn';
+import { DependencyList, useEffect } from "@lynx-js/react";
+import useTimeoutFn from "./useTimeoutFn";
 
 export type UseDebounceReturn = [() => boolean | null, () => void];
 
@@ -8,6 +8,8 @@ export default function useDebounce(
   ms: number = 0,
   deps: DependencyList = []
 ): UseDebounceReturn {
+  "background only";
+  
   const [isReady, cancel, reset] = useTimeoutFn(fn, ms);
 
   useEffect(reset, deps);

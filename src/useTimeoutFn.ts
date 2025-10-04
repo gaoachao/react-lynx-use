@@ -6,6 +6,8 @@ export default function useTimeoutFn(
   fn: Function,
   delay: number = 0
 ): UseTimeoutFnReturn {
+  "background only";
+
   const ready = useRef<boolean | null>(false);
   const timeout = useRef<ReturnType<typeof setTimeout>>();
   const callback = useRef(fn);
