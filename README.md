@@ -1,17 +1,16 @@
-# ReactLynx Hooks 🚀
+# 🪝 ReactLynxUse
 
-A React-style hooks library designed specifically for ReactLynx development, bringing familiar React patterns to cross-platform applications.
+A React-style hooks library designed specifically for [ReactLynx](https://lynxjs.org/react/), bringing familiar React patterns to cross-platform applications.
 
 ## ✨ Features
 
 - 🎯 **ReactLynx Compatible**: Seamlessly integrates with ReactLynx applications
 - ⚛️ **React-Style API**: Familiar hooks interface for React developers
 - 🔧 **Cross-Platform**: Built with Lynx's unique cross-platform capabilities in mind
-- 📦 **Lightweight**: Minimal overhead with maximum functionality
 
-## 🙏 Acknowledgments
+## 🙏 Thanks
 
-Many hooks in this library are built upon the excellent foundation provided by [react-use](https://github.com/streamich/react-use). We extend our gratitude to the react-use team for their outstanding work in the React hooks ecosystem.
+Many hooks in this library are built upon the excellent foundation provided by [react-use](https://github.com/streamich/react-use) and [react-hooks](https://github.com/kripod/react-hooks). We extend our heartfelt gratitude to these amazing projects and their contributors for their outstanding work in the React hooks ecosystem.
 
 ## ⚠️ Development Status
 
@@ -21,6 +20,7 @@ Many hooks in this library are built upon the excellent foundation provided by [
 
 ### Lynx Cross-Platform Specific Hooks
 
+- [x] **`useLynxGlobalEventListener`**
 - [ ] **`useTapAway`**
 - [ ] **`useIntersection`**
 - [ ] **`useInput`**
