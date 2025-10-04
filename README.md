@@ -15,7 +15,7 @@ Many hooks in this library are built upon the excellent foundation provided by [
 We also draw inspiration from other amazing projects in the community:
 
 - [kripod/react-hooks](https://github.com/kripod/react-hooks)
-- [vueuse-vueuse](https://github.com/vueuse/vueuse)
+- [vueuse/vueuse](https://github.com/vueuse/vueuse)
 - [alibaba/hooks](https://github.com/alibaba/hooks)
 
 ## ⚠️ Development Status
