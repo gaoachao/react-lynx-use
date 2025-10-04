@@ -10,7 +10,13 @@ A React-style hooks library designed specifically for [ReactLynx](https://lynxjs
 
 ## 🙏 Thanks
 
-Many hooks in this library are built upon the excellent foundation provided by [react-use](https://github.com/streamich/react-use) and [react-hooks](https://github.com/kripod/react-hooks). We extend our heartfelt gratitude to these amazing projects and their contributors for their outstanding work in the React hooks ecosystem.
+Many hooks in this library are built upon the excellent foundation provided by [react-use](https://github.com/streamich/react-use). We extend our gratitude to the maintainers and contributors of react-use for their outstanding work in the React hooks ecosystem.
+
+We also draw inspiration from other amazing projects in the community:
+
+- [kripod/react-hooks](https://github.com/kripod/react-hooks)
+- [vueuse-vueuse](https://github.com/vueuse/vueuse)
+- [alibaba/hooks](https://github.com/alibaba/hooks)
 
 ## ⚠️ Development Status
 
