@@ -30,7 +30,7 @@ import { useEffect, useMemo, useRef } from '@lynx-js/react';
  * @param listener - Event handler
  * @public
  */
-export function useLynxGlobalEventListener<T extends (...args: any[]) => void>(
+export default function useEventListener<T extends (...args: any[]) => void>(
   eventName: string,
   listener: T,
 ): void {
