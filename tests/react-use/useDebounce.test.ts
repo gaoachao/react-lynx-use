@@ -1,15 +1,16 @@
+import type { DependencyList } from '@lynx-js/react';
 import {
   act,
+  type RenderHookResult,
   renderHook,
-  RenderHookResult,
-} from "@lynx-js/react/testing-library";
-import { DependencyList } from "@lynx-js/react";
+} from '@lynx-js/react/testing-library';
+import type { Mock } from 'vitest';
 import {
   type UseDebounceReturn,
   default as useDebounce,
-} from "../../src/useDebounce";
+} from '../../src/useDebounce';
 
-describe("useDebounce", () => {
+describe('useDebounce', () => {
   beforeAll(() => {
     vi.useFakeTimers();
   });
@@ -22,24 +23,27 @@ describe("useDebounce", () => {
     vi.useRealTimers();
   });
 
-  it("should be defined", () => {
+  it('should be defined', () => {
     expect(useDebounce).toBeDefined();
   });
 
-  it("should return two functions", () => {
+  it('should return two functions', () => {
     const hook = renderHook(() => useDebounce(() => {}, 5));
 
     expect(hook.result.current.length).toBe(2);
-    expect(typeof hook.result.current[0]).toBe("function");
-    expect(typeof hook.result.current[1]).toBe("function");
+    expect(typeof hook.result.current[0]).toBe('function');
+    expect(typeof hook.result.current[1]).toBe('function');
   });
 
   function getHook(
     ms: number = 5,
-    dep: DependencyList = []
+    dep: DependencyList = [],
   ): [
-    Function,
-    RenderHookResult<UseDebounceReturn, { delay: number; deps: DependencyList }>
+    Mock,
+    RenderHookResult<
+      UseDebounceReturn,
+      { delay: number; deps: DependencyList }
+    >,
   ] {
     const spy = vi.fn();
     return [
@@ -53,7 +57,7 @@ describe("useDebounce", () => {
     ];
   }
 
-  it("should call passed function after given amount of time", () => {
+  it('should call passed function after given amount of time', () => {
     const [spy] = getHook();
 
     expect(spy).not.toHaveBeenCalled();
@@ -61,7 +65,7 @@ describe("useDebounce", () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it("should cancel function call on unmount", () => {
+  it('should cancel function call on unmount', () => {
     const [spy, hook] = getHook();
 
     expect(spy).not.toHaveBeenCalled();
@@ -70,7 +74,7 @@ describe("useDebounce", () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it("first function should return actual state of debounce", () => {
+  it('first function should return actual state of debounce', () => {
     let [, hook] = getHook();
     let [isReady] = hook.result.current;
 
@@ -84,7 +88,7 @@ describe("useDebounce", () => {
     expect(isReady()).toBe(true);
   });
 
-  it("second function should cancel debounce", () => {
+  it('second function should cancel debounce', () => {
     const [spy, hook] = getHook();
     const [isReady, cancel] = hook.result.current;
 
@@ -100,7 +104,7 @@ describe("useDebounce", () => {
     expect(isReady()).toBe(null);
   });
 
-  it("should reset timeout on delay change", () => {
+  it('should reset timeout on delay change', () => {
     const [spy, hook] = getHook(50);
 
     expect(spy).not.toHaveBeenCalled();
@@ -110,7 +114,7 @@ describe("useDebounce", () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it("should reset timeout on deps change", () => {
+  it('should reset timeout on deps change', () => {
     const [spy, hook] = getHook(50, [5, 6]);
 
     vi.advanceTimersByTime(45);

@@ -1,3 +1,5 @@
+// biome-ignore-all lint/suspicious/noExplicitAny: need any here
+
 import { useEffect, useMemo, useRef } from '@lynx-js/react';
 
 /**
@@ -39,7 +41,9 @@ export function useLynxGlobalEventListener<T extends (...args: any[]) => void>(
   useMemo(() => {
     if (previousArgsRef.current) {
       const [eventName, listener] = previousArgsRef.current;
-      lynx.getJSModule('GlobalEventEmitter').removeListener(eventName, listener);
+      lynx
+        .getJSModule('GlobalEventEmitter')
+        .removeListener(eventName, listener);
     }
     lynx.getJSModule('GlobalEventEmitter').addListener(eventName, listener);
     previousArgsRef.current = [eventName, listener];
@@ -49,7 +53,9 @@ export function useLynxGlobalEventListener<T extends (...args: any[]) => void>(
     return () => {
       if (previousArgsRef.current) {
         const [eventName, listener] = previousArgsRef.current;
-        lynx.getJSModule('GlobalEventEmitter').removeListener(eventName, listener);
+        lynx
+          .getJSModule('GlobalEventEmitter')
+          .removeListener(eventName, listener);
       }
     };
   }, []);

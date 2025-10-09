@@ -1,8 +1,8 @@
-import { RefObject, useEffect, useRef } from "@lynx-js/react";
-import { TouchEvent } from "@lynx-js/types";
+// import { RefObject, useEffect, useRef } from '@lynx-js/react';
+// import type { TouchEvent } from '@lynx-js/types';
 
-const defaultEvents = ["bindtap"];
+// const defaultEvents = ['bindtap'];
 
-const useTapAway = <E extends TouchEvent = TouchEvent>() => {};
+// const useTapAway = <E extends TouchEvent = TouchEvent>() => {};
 
-export default useTapAway;
+// export default useTapAway;

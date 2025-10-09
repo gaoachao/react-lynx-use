@@ -1,18 +1,18 @@
-import { act, renderHook } from "@lynx-js/react/testing-library";
-import useUpdate from "../../src/useUpdate";
+import { act, renderHook } from '@lynx-js/react/testing-library';
+import useUpdate from '../../src/useUpdate';
 
-describe("useUpdate", () => {
-  it("should be defined", () => {
+describe('useUpdate', () => {
+  it('should be defined', () => {
     expect(useUpdate).toBeDefined();
   });
 
-  it("should return a function", () => {
+  it('should return a function', () => {
     const { result } = renderHook(() => useUpdate());
 
-    expect(typeof result.current).toBe("function");
+    expect(typeof result.current).toBe('function');
   });
 
-  it("should re-render component each time returned function is called", () => {
+  it('should re-render component each time returned function is called', () => {
     let renders = 0;
     const {
       result: { current: update },
@@ -30,13 +30,13 @@ describe("useUpdate", () => {
     expect(renders).toBe(3);
   });
 
-  it("should return exact same function in between renders", () => {
+  it('should return exact same function in between renders', () => {
     let renders = 0;
     const { result } = renderHook(() => {
       renders++;
       return useUpdate();
     });
-    let initialUpdateFn = result.current;
+    const initialUpdateFn = result.current;
 
     expect(renders).toBe(1);
 
@@ -49,13 +49,13 @@ describe("useUpdate", () => {
     expect(initialUpdateFn).toBe(result.current);
   });
 
-  it("passing the argument to returned function should not affect the use", () => {
+  it('passing the argument to returned function should not affect the use', () => {
     let renders = 0;
     const { result } = renderHook(() => {
       renders++;
       return useUpdate();
     });
-    let initialUpdateFn = result.current;
+    const initialUpdateFn = result.current;
 
     expect(renders).toBe(1);
 

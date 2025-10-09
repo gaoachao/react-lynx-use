@@ -1,5 +1,5 @@
-import { useCallback, useState } from "@lynx-js/react";
-import type { BaseEvent } from "@lynx-js/types";
+import { useCallback, useState } from '@lynx-js/react';
+import type { BaseEvent } from '@lynx-js/types';
 
 export type InputInputEvent = {
   value: string;
@@ -8,7 +8,7 @@ export type InputInputEvent = {
   isComposing?: boolean;
 };
 
-export type InputEvent = BaseEvent<"bindinput", InputInputEvent>;
+export type InputEvent = BaseEvent<'bindinput', InputInputEvent>;
 
 export type UseInputOptions<T = string> = {
   onChange?:
@@ -52,11 +52,11 @@ function useInput<T = string>(initialValue: T, options?: UseInputOptions<T>) {
         options.onChange(formattedValue, e);
       }
     },
-    [options]
+    [options],
   );
 
   const clear = useCallback(() => {
-    setValue("" as T);
+    setValue('' as T);
   }, []);
 
   return {

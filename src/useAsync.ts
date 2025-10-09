@@ -1,12 +1,12 @@
-import { DependencyList, useEffect } from "@lynx-js/react";
-import useAsyncFn from "./useAsyncFn";
-import { FunctionReturningPromise } from "./useAsyncFn";
+import { type DependencyList, useEffect } from '@lynx-js/react';
+import type { FunctionReturningPromise } from './useAsyncFn';
+import useAsyncFn from './useAsyncFn';
 
 export default function useAsync<T extends FunctionReturningPromise>(
   fn: T,
-  deps: DependencyList = []
+  deps: DependencyList = [],
 ) {
-  "background only";
+  'background only';
 
   const [state, callback] = useAsyncFn(fn, deps, {
     loading: true,

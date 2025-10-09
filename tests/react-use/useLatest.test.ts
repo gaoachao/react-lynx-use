@@ -1,16 +1,16 @@
-import { renderHook } from "@lynx-js/react/testing-library";
-import { useLatest } from "../../src/react-use";
+import { renderHook } from '@lynx-js/react/testing-library';
+import { useLatest } from '../../src/react-use';
 
 const setUp = () =>
   renderHook(({ state }) => useLatest(state), { initialProps: { state: 0 } });
 
-it("should return a ref with the latest value on initial render", () => {
+it('should return a ref with the latest value on initial render', () => {
   const { result } = setUp();
 
   expect(result.current).toEqual({ current: 0 });
 });
 
-it("should always return a ref with the latest value after each update", () => {
+it('should always return a ref with the latest value after each update', () => {
   const { result, rerender } = setUp();
 
   rerender({ state: 2 });

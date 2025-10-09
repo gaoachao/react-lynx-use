@@ -1,15 +1,17 @@
-import { DependencyList, useEffect } from "@lynx-js/react";
-import useTimeoutFn from "./useTimeoutFn";
+// biome-ignore-all lint/suspicious/noExplicitAny: need any here
+
+import { type DependencyList, useEffect } from '@lynx-js/react';
+import useTimeoutFn from './useTimeoutFn';
 
 export type UseDebounceReturn = [() => boolean | null, () => void];
 
 export default function useDebounce(
-  fn: Function,
+  fn: (...args: any[]) => any,
   ms: number = 0,
-  deps: DependencyList = []
+  deps: DependencyList = [],
 ): UseDebounceReturn {
-  "background only";
-  
+  'background only';
+
   const [isReady, cancel, reset] = useTimeoutFn(fn, ms);
 
   useEffect(reset, deps);

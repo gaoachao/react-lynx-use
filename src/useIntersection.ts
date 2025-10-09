@@ -1,5 +1,5 @@
-import { useEffect, useState } from "@lynx-js/react";
-import type { ObserveCallback, ObserveCallbackResult } from "@lynx-js/types";
+import { useEffect, useState } from '@lynx-js/react';
+import type { ObserveCallback, ObserveCallbackResult } from '@lynx-js/types';
 
 export type IntersectionObserverOptions = {
   thresholds?: [];
@@ -10,9 +10,9 @@ export type IntersectionObserverOptions = {
 // For main-thread components IntersectionObserver implementation
 const useIntersection = (
   seletor: string,
-  options: IntersectionObserverOptions
+  options: IntersectionObserverOptions,
 ): ObserveCallbackResult | null => {
-  "background only";
+  'background only';
 
   const [
     intersectionObserveCallbackResult,
@@ -20,14 +20,14 @@ const useIntersection = (
   ] = useState<ObserveCallbackResult | null>(null);
 
   useEffect(() => {
-    if (typeof lynx?.createIntersectionObserver === "function") {
+    if (typeof lynx?.createIntersectionObserver === 'function') {
       const handler: ObserveCallback = (result: ObserveCallbackResult) => {
         setIntersectionObserveCallbackResult(result);
       };
 
       const observer = lynx.createIntersectionObserver(
-        { componentId: "" },
-        options
+        { componentId: '' },
+        options,
       );
       observer.observe(seletor, handler);
 

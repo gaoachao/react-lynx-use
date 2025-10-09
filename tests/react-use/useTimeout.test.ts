@@ -1,11 +1,12 @@
 import {
   act,
+  type RenderHookResult,
   renderHook,
-  RenderHookResult,
   waitFor,
-} from "@lynx-js/react/testing-library";
-import useTimeout from "../../src/useTimeout";
-import type { UseTimeoutReturn } from "../../src/useTimeout";
+} from '@lynx-js/react/testing-library';
+import type { Mock } from 'vitest';
+import type { UseTimeoutReturn } from '../../src/useTimeout';
+import useTimeout from '../../src/useTimeout';
 
 beforeAll(() => {
   vi.useFakeTimers();
@@ -19,22 +20,22 @@ afterAll(() => {
   vi.useRealTimers();
 });
 
-it("should be defined", () => {
+it('should be defined', () => {
   expect(useTimeout).toBeDefined();
 });
 
-it("should return three functions", () => {
+it('should return three functions', () => {
   const hook = renderHook(() => useTimeout(5));
 
   expect(hook.result.current.length).toBe(3);
-  expect(typeof hook.result.current[0]).toBe("function");
-  expect(typeof hook.result.current[1]).toBe("function");
-  expect(typeof hook.result.current[2]).toBe("function");
+  expect(typeof hook.result.current[0]).toBe('function');
+  expect(typeof hook.result.current[1]).toBe('function');
+  expect(typeof hook.result.current[2]).toBe('function');
 });
 
 function getHook(
-  ms: number = 5
-): [Function, RenderHookResult<UseTimeoutReturn, { delay: number }>] {
+  ms: number = 5,
+): [Mock, RenderHookResult<UseTimeoutReturn, { delay: number }>] {
   const spy = vi.fn();
   return [
     spy,
@@ -43,13 +44,13 @@ function getHook(
         spy();
         return useTimeout(delay);
       },
-      { initialProps: { delay: ms } }
+      { initialProps: { delay: ms } },
     ),
   ];
 }
 
-it("should re-render component after given amount of time", () => {
-  const [spy, hook] = getHook();
+it('should re-render component after given amount of time', () => {
+  const [spy, _] = getHook();
   expect(spy).toHaveBeenCalledTimes(1);
   waitFor(() => {
     expect(spy).toHaveBeenCalledTimes(2);
@@ -57,7 +58,7 @@ it("should re-render component after given amount of time", () => {
   vi.advanceTimersByTime(5);
 });
 
-it("should cancel timeout on unmount", () => {
+it('should cancel timeout on unmount', () => {
   const [spy, hook] = getHook();
 
   expect(spy).toHaveBeenCalledTimes(1);
@@ -66,7 +67,7 @@ it("should cancel timeout on unmount", () => {
   expect(spy).toHaveBeenCalledTimes(1);
 });
 
-it("first function should return actual state of timeout", () => {
+it('first function should return actual state of timeout', () => {
   let [, hook] = getHook();
   let [isReady] = hook.result.current;
 
@@ -82,7 +83,7 @@ it("first function should return actual state of timeout", () => {
   vi.advanceTimersByTime(5);
 });
 
-it("second function should cancel timeout", () => {
+it('second function should cancel timeout', () => {
   const [spy, hook] = getHook();
   const [isReady, cancel] = hook.result.current;
 
@@ -98,7 +99,7 @@ it("second function should cancel timeout", () => {
   expect(isReady()).toBe(null);
 });
 
-it("third function should reset timeout", () => {
+it('third function should reset timeout', () => {
   const [spy, hook] = getHook();
   const [isReady, cancel, reset] = hook.result.current;
 
@@ -124,7 +125,7 @@ it("third function should reset timeout", () => {
   vi.advanceTimersByTime(5);
 });
 
-it("should reset timeout on delay change", () => {
+it('should reset timeout on delay change', () => {
   const [spy, hook] = getHook(15);
 
   expect(spy).toHaveBeenCalledTimes(1);

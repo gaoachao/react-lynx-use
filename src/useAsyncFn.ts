@@ -1,53 +1,60 @@
-import { DependencyList, useCallback, useRef, useState } from "@lynx-js/react";
-import { useMountedState } from "./react-use";
+// biome-ignore-all lint/suspicious/noExplicitAny: need any here
 
-export type PromiseType<P extends Promise<any>> = P extends Promise<infer T>
-  ? T
+import {
+  type DependencyList,
+  useCallback,
+  useRef,
+  useState,
+} from '@lynx-js/react';
+import { useMountedState } from './react-use';
+
+export type PromiseType<P extends Promise<any>> = P extends Promise<infer T> ? T
   : never;
 
 export type FunctionReturningPromise = (...args: any[]) => Promise<any>;
 
 export type AsyncState<T> =
   | {
-      loading: boolean;
-      error?: undefined;
-      value?: undefined;
-    }
+    loading: boolean;
+    error?: undefined;
+    value?: undefined;
+  }
   | {
-      loading: true;
-      error?: Error | undefined;
-      value?: T;
-    }
+    loading: true;
+    error?: Error | undefined;
+    value?: T;
+  }
   | {
-      loading: false;
-      error: Error;
-      value?: undefined;
-    }
+    loading: false;
+    error: Error;
+    value?: undefined;
+  }
   | {
-      loading: false;
-      error?: undefined;
-      value: T;
-    };
+    loading: false;
+    error?: undefined;
+    value: T;
+  };
 
 export type StateFromFunctionReturningPromise<
-  T extends FunctionReturningPromise
+  T extends FunctionReturningPromise,
 > = AsyncState<PromiseType<ReturnType<T>>>;
 
 export type AsyncFnReturn<
-  T extends FunctionReturningPromise = FunctionReturningPromise
+  T extends FunctionReturningPromise = FunctionReturningPromise,
 > = [StateFromFunctionReturningPromise<T>, T];
 
 export default function useAsyncFn<T extends FunctionReturningPromise>(
   fn: T,
   deps: DependencyList = [],
-  initialState: StateFromFunctionReturningPromise<T> = { loading: false }
+  initialState: StateFromFunctionReturningPromise<T> = { loading: false },
 ): AsyncFnReturn<T> {
-  "background only";
+  'background only';
 
   const lastCallId = useRef(0);
   const isMounted = useMountedState();
-  const [state, set] =
-    useState<StateFromFunctionReturningPromise<T>>(initialState);
+  const [state, set] = useState<StateFromFunctionReturningPromise<T>>(
+    initialState,
+  );
 
   const callback = useCallback((...args: Parameters<T>): ReturnType<T> => {
     const callId = ++lastCallId.current;
@@ -58,19 +65,19 @@ export default function useAsyncFn<T extends FunctionReturningPromise>(
 
     return fn(...args).then(
       (value) => {
-        isMounted() &&
-          callId === lastCallId.current &&
-          set({ value, loading: false });
+        isMounted()
+          && callId === lastCallId.current
+          && set({ value, loading: false });
 
         return value;
       },
       (error) => {
-        isMounted() &&
-          callId === lastCallId.current &&
-          set({ error, loading: false });
+        isMounted()
+          && callId === lastCallId.current
+          && set({ error, loading: false });
 
         return error;
-      }
+      },
     ) as ReturnType<T>;
   }, deps);
 

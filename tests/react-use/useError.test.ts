@@ -1,18 +1,20 @@
-import { renderHook, act } from "@lynx-js/react/testing-library";
-import { useError } from "../../src/react-use";
+// biome-ignore-all lint/suspicious/noTsIgnore: need @ts-ignore here
+
+import { act, renderHook } from '@lynx-js/react/testing-library';
+import { useError } from '../../src/react-use';
 
 const setup = () => renderHook(() => useError());
 
 beforeEach(() => {
-  vi.spyOn(console, "error").mockImplementation(() => {});
+  vi.spyOn(console, 'error').mockImplementation(() => {});
 });
 
 afterEach(() => {
   vi.clearAllMocks();
 });
 
-it("should throw an error on error dispatch", () => {
-  const errorStr = "some_error";
+it('should throw an error on error dispatch', () => {
+  const errorStr = 'some_error';
 
   try {
     const { result } = setup();

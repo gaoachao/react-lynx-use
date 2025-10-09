@@ -1,26 +1,28 @@
+// biome-ignore-all lint/style/noNonNullAssertion: Safe to assert non-null here
+// biome-ignore-all lint/suspicious/noExplicitAny: need any here
+
 // NOTE: most behavior that useAsyncFn provides
 //       is covered be the useAsync tests.
 //
 // The main difference is that useAsyncFn
 // does not automatically invoke the function
 // and it can take arguments.
-
 import {
   act,
+  type RenderHookResult,
   renderHook,
-  RenderHookResult,
   waitFor,
-} from "@lynx-js/react/testing-library";
-import useAsyncFn, { AsyncState } from "../../src/useAsyncFn";
+} from '@lynx-js/react/testing-library';
+import useAsyncFn, { type AsyncState } from '../../src/useAsyncFn';
 
 type AdderFn = (a?: number, b?: number) => Promise<number>;
 
-describe("useAsyncFn", () => {
-  it("should be defined", () => {
+describe('useAsyncFn', () => {
+  it('should be defined', () => {
     expect(useAsyncFn).toBeDefined();
   });
 
-  describe("the callback can be awaited and return the value", () => {
+  describe('the callback can be awaited and return the value', () => {
     let hook:
       | RenderHookResult<[AsyncState<number>, AdderFn], { fn: AdderFn }>
       | undefined;
@@ -33,15 +35,15 @@ describe("useAsyncFn", () => {
         ({ fn }) => useAsyncFn(fn),
         {
           initialProps: { fn: adder },
-        }
+        },
       );
     });
 
-    it("awaits the result", async () => {
+    it('awaits the result', async () => {
       expect.assertions(3);
 
       const [, callback] = hook!.result.current;
-      let result;
+      let result: any;
 
       await act(async () => {
         result = await callback(5, 7);
@@ -56,7 +58,7 @@ describe("useAsyncFn", () => {
     });
   });
 
-  describe("args can be passed to the function", () => {
+  describe('args can be passed to the function', () => {
     let hook:
       | RenderHookResult<[AsyncState<number>, AdderFn], { fn: AdderFn }>
       | undefined;
@@ -74,11 +76,11 @@ describe("useAsyncFn", () => {
           initialProps: {
             fn: adder,
           },
-        }
+        },
       );
     });
 
-    it("initially does not have a value", () => {
+    it('initially does not have a value', () => {
       const [state] = hook!.result.current;
 
       expect(state.value).toEqual(undefined);
@@ -87,8 +89,8 @@ describe("useAsyncFn", () => {
       expect(callCount).toEqual(0);
     });
 
-    describe("when invoked", () => {
-      it("resolves a value derived from args", async () => {
+    describe('when invoked', () => {
+      it('resolves a value derived from args', async () => {
         const [, callback] = hook!.result.current;
 
         act(() => {
@@ -108,7 +110,7 @@ describe("useAsyncFn", () => {
     });
   });
 
-  it("should only consider last call and discard previous ones", async () => {
+  it('should only consider last call and discard previous ones', async () => {
     const queuedPromises: { id: number; resolve: () => void }[] = [];
     const delayedFunction1 = () => {
       return new Promise<number>((resolve) =>
@@ -146,9 +148,9 @@ describe("useAsyncFn", () => {
     });
   });
 
-  it("should keeping value of initialState when loading", async () => {
-    const fetch = async () => "new state";
-    const initialState = { loading: false, value: "init state" };
+  it('should keeping value of initialState when loading', async () => {
+    const fetch = async () => 'new state';
+    const initialState = { loading: false, value: 'init state' };
 
     const hook = renderHook<
       [AsyncState<string>, () => Promise<string>],
@@ -159,18 +161,18 @@ describe("useAsyncFn", () => {
 
     const [state, callback] = hook.result.current;
     expect(state.loading).toBe(false);
-    expect(state.value).toBe("init state");
+    expect(state.value).toBe('init state');
 
     act(() => {
       callback();
     });
 
     expect(hook.result.current[0].loading).toBe(true);
-    expect(hook.result.current[0].value).toBe("init state");
+    expect(hook.result.current[0].value).toBe('init state');
 
     waitFor(() => {
       expect(hook.result.current[0].loading).toBe(false);
-      expect(hook.result.current[0].value).toBe("new state");
+      expect(hook.result.current[0].value).toBe('new state');
     });
   });
 });

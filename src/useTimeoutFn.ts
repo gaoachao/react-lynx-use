@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useRef } from "@lynx-js/react";
+// biome-ignore-all lint/suspicious/noExplicitAny: need any here
+
+import { useCallback, useEffect, useRef } from '@lynx-js/react';
 
 export type UseTimeoutFnReturn = [() => boolean | null, () => void, () => void];
 
 export default function useTimeoutFn(
-  fn: Function,
-  delay: number = 0
+  fn: (...args: any[]) => any,
+  delay: number = 0,
 ): UseTimeoutFnReturn {
-  "background only";
+  'background only';
 
   const ready = useRef<boolean | null>(false);
   const timeout = useRef<ReturnType<typeof setTimeout>>();

@@ -1,23 +1,25 @@
-import {
-  renderHook,
-  RenderHookResult,
-  waitFor,
-} from "@lynx-js/react/testing-library";
-import { useCallback } from "@lynx-js/react";
-import useAsync from "../../src/useAsync";
-import type { StateFromFunctionReturningPromise } from "../../src/useAsyncFn";
+// biome-ignore-all lint/suspicious/noExplicitAny: need any here
 
-describe("useAsync", () => {
-  it("should be defined", () => {
+import { useCallback } from '@lynx-js/react';
+import {
+  type RenderHookResult,
+  renderHook,
+  waitFor,
+} from '@lynx-js/react/testing-library';
+import useAsync from '../../src/useAsync';
+import type { StateFromFunctionReturningPromise } from '../../src/useAsyncFn';
+
+describe('useAsync', () => {
+  it('should be defined', () => {
     expect(useAsync).toBeDefined();
   });
 
-  describe("a success", () => {
+  describe('a success', () => {
     let hook:
       | RenderHookResult<
-          StateFromFunctionReturningPromise<() => Promise<unknown>>,
-          { fn: () => Promise<unknown> }
-        >
+        StateFromFunctionReturningPromise<() => Promise<unknown>>,
+        { fn: () => Promise<unknown> }
+      >
       | undefined;
     let callCount = 0;
 
@@ -27,7 +29,7 @@ describe("useAsync", () => {
 
         const wait = setTimeout(() => {
           clearTimeout(wait);
-          resolve("yay");
+          resolve('yay');
         }, 0);
       });
     };
@@ -41,28 +43,28 @@ describe("useAsync", () => {
       });
     });
 
-    it("initially starts loading", async () => {
-      expect(hook!.result.current.loading).toEqual(true);
+    it('initially starts loading', async () => {
+      expect(hook?.result.current.loading).toEqual(true);
     });
 
-    it("resolves", async () => {
-      hook!.rerender({ fn: resolver });
+    it('resolves', async () => {
+      hook?.rerender({ fn: resolver });
 
       await waitFor(() => {
         expect(callCount).toEqual(1);
-        expect(hook!.result.current.loading).toBeFalsy();
-        expect(hook!.result.current.value).toEqual("yay");
-        expect(hook!.result.current.error).toEqual(undefined);
+        expect(hook?.result.current.loading).toBeFalsy();
+        expect(hook?.result.current.value).toEqual('yay');
+        expect(hook?.result.current.error).toEqual(undefined);
       });
     });
   });
 
-  describe("an error", () => {
+  describe('an error', () => {
     let hook:
       | RenderHookResult<
-          StateFromFunctionReturningPromise<() => Promise<unknown>>,
-          { fn: () => Promise<unknown> }
-        >
+        StateFromFunctionReturningPromise<() => Promise<unknown>>,
+        { fn: () => Promise<unknown> }
+      >
       | undefined;
     let callCount = 0;
 
@@ -72,7 +74,7 @@ describe("useAsync", () => {
 
         const wait = setTimeout(() => {
           clearTimeout(wait);
-          reject("yay");
+          reject('yay');
         }, 0);
       });
     };
@@ -86,43 +88,43 @@ describe("useAsync", () => {
       });
     });
 
-    it("initially starts loading", async () => {
-      expect(hook!.result.current.loading).toBeTruthy();
+    it('initially starts loading', async () => {
+      expect(hook?.result.current.loading).toBeTruthy();
     });
 
-    it("resolves", async () => {
-      hook!.rerender({ fn: rejection });
+    it('resolves', async () => {
+      hook?.rerender({ fn: rejection });
 
       waitFor(() => {
         expect(callCount).toEqual(1);
-        expect(hook!.result.current.loading).toBeFalsy();
-        expect(hook!.result.current.error).toEqual("yay");
-        expect(hook!.result.current.value).toEqual(undefined);
+        expect(hook?.result.current.loading).toBeFalsy();
+        expect(hook?.result.current.error).toEqual('yay');
+        expect(hook?.result.current.value).toEqual(undefined);
       });
     });
   });
 
-  describe("re-evaluates when dependencies change", () => {
-    describe("the fn is a dependency", () => {
+  describe('re-evaluates when dependencies change', () => {
+    describe('the fn is a dependency', () => {
       let hook:
         | RenderHookResult<
-            StateFromFunctionReturningPromise<() => Promise<string>>,
-            { fn: () => Promise<string> }
-          >
+          StateFromFunctionReturningPromise<() => Promise<string>>,
+          { fn: () => Promise<string> }
+        >
         | undefined;
       let callCount = 0;
 
       const initialFn = async () => {
         callCount++;
-        return "value";
+        return 'value';
       };
 
       const differentFn = async () => {
         callCount++;
-        return "new value";
+        return 'new value';
       };
 
-      beforeEach((done) => {
+      beforeEach(() => {
         callCount = 0;
 
         hook = renderHook(({ fn }) => useAsync(fn, [fn]), {
@@ -130,29 +132,29 @@ describe("useAsync", () => {
         });
       });
 
-      it("renders the first value", () => {
-        expect(hook!.result.current.value).toEqual("value");
+      it('renders the first value', () => {
+        expect(hook?.result.current.value).toEqual('value');
       });
 
-      it("renders a different value when deps change", async () => {
+      it('renders a different value when deps change', async () => {
         expect(callCount).toEqual(1);
 
-        hook!.rerender({ fn: differentFn }); // change the fn to initiate new request
+        hook?.rerender({ fn: differentFn }); // change the fn to initiate new request
 
         waitFor(() => {
           expect(callCount).toEqual(2);
-          expect(hook!.result.current.value).toEqual("new value");
+          expect(hook?.result.current.value).toEqual('new value');
         });
       });
     });
 
-    describe("the additional dependencies list changes", () => {
+    describe('the additional dependencies list changes', () => {
       let callCount = 0;
       let hook:
         | RenderHookResult<
-            StateFromFunctionReturningPromise<any>,
-            { fn: (counter: number) => Promise<string>; counter: number }
-          >
+          StateFromFunctionReturningPromise<any>,
+          { fn: (counter: number) => Promise<string>; counter: number }
+        >
         | undefined;
 
       const staticFunction = async (counter: number) => {
@@ -160,7 +162,7 @@ describe("useAsync", () => {
         return `counter is ${counter} and callCount is ${callCount}`;
       };
 
-      beforeEach((done) => {
+      beforeEach(() => {
         callCount = 0;
         hook = renderHook(
           ({ fn, counter }) => {
@@ -172,21 +174,21 @@ describe("useAsync", () => {
               counter: 0,
               fn: staticFunction,
             },
-          }
+          },
         );
       });
 
-      it("initial renders the first passed pargs", () => {
-        expect(hook!.result.current.value).toEqual(
-          "counter is 0 and callCount is 1"
+      it('initial renders the first passed pargs', () => {
+        expect(hook?.result.current.value).toEqual(
+          'counter is 0 and callCount is 1',
         );
       });
 
-      it("renders a different value when deps change", async () => {
-        hook!.rerender({ fn: staticFunction, counter: 1 });
+      it('renders a different value when deps change', async () => {
+        hook?.rerender({ fn: staticFunction, counter: 1 });
         waitFor(() => {
-          expect(hook!.result.current.value).toEqual(
-            "counter is 1 and callCount is 2"
+          expect(hook?.result.current.value).toEqual(
+            'counter is 1 and callCount is 2',
           );
         });
       });
