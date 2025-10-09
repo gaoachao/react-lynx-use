@@ -3,7 +3,9 @@
 import { useEffect, useMemo, useRef } from '@lynx-js/react';
 
 /**
- * `useLynxGlobalEventListener` help you `addListener` as early as possible.
+ * `useEventListener` help you `addListener` as early as possible.
+ * 
+ *  Note: Renamed from `useLynxGlobalEventListener` in `@lynx-js/react`
  *
  * @example
  *
@@ -11,10 +13,10 @@ import { useEffect, useMemo, useRef } from '@lynx-js/react';
  *
  * ```jsx
  * function App() {
- *   useLynxGlobalEventListener('exposure', (e) => {
+ *   useEventListener('exposure', (e) => {
  *     console.log("exposure", e)
  *   })
- *   useLynxGlobalEventListener('disexposure', (e) => {
+ *   useEventListener('disexposure', (e) => {
  *     console.log("disexposure", e)
  *   })
  *   return (
