@@ -26,12 +26,12 @@ We also draw inspiration from other amazing projects in the community:
 
 ### Lynx Cross-Platform Specific Hooks
 
-- [x] **`useLynxGlobalEventListener`**
+- [x] **`useEventListener`**
+- [x] **`useTapLock`**
 - [ ] **`useTapAway`**
 - [ ] **`useIntersection`**
 - [ ] **`useInput`**
 - [ ] **`useEvent`**
-- [ ] **`useEventListener`**
 
 ## 🚧 Coming Soon
 
