@@ -1,6 +1,6 @@
 {
   "name": "@lynx-js/react-use",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "exports": {
     ".": {
@@ -19,10 +19,7 @@
     "check": "biome check --write",
     "dev": "rslib build --watch",
     "format": "biome format --write",
-    "test": "vitest",
-    "docs:dev": "rspress dev",
-    "docs:build": "rspress build",
-    "docs:review": "rspress preview"
+    "test": "vitest"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
@@ -34,7 +31,6 @@
     "@types/react": "^18.3.25",
     "dprint": "^0.50.2",
     "jsdom": "^27.0.0",
-    "rspress": "^1.45.6",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   },
